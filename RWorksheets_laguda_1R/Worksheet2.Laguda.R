@@ -60,12 +60,72 @@ sequence
 
 #6. a. Create a data frame for month, price per liter (php) and purchase-quantity (liter). Write the R scripts and its output.
 
-diesel <- data.frame (
+# Create a data frame directly
+diesel <- data.frame(
   Month = c("Jan", "Feb", "March", "Apr", "May", "June"),
-    Price(php) = c("52.50", "57.25", "60.00", "65.00", "74.25", "54.00"),
-  Liter = c( "25", "30", "40", "50", "10", "45")
+  Price_Per_Liter = c(52.50, 57.25, 60.00, 65.00, 74.25, 54.00),
+  Purchase_Quantity = c(25, 30, 40, 50, 10, 45)
 )
 
 diesel
 
+# Calculate the weighted mean of fuel expenditure
+average_expenditure <- weighted.mean(diesel$Price_Per_Liter, diesel$Purchase_Quantity)
 
+# Print the average fuel expenditure
+average_expenditure
+
+
+#7. Create a vector data with 7 elements.
+
+data <- c(length(rivers), sum(rivers), mean(rivers), median(rivers), var(rivers),
+          sd(rivers), min(rivers), max(rivers))
+data
+
+#The results are: [1]    141.0000  83357.0000    591.1844    425.0000 243908.4086
+#  [6]    493.8708    135.0000   3710.0000
+
+#8. Create vectors according to the table. 
+
+#a.Vectors using the data in the table.
+celebrities <- c("Tom Cruise", "Rolling Stones", "Oprah Winfrey", "U2", "Tiger Woods", "Steven Spielberg", "Howard Stern", "50 Cent", "Cast of Sopranos", "Dan Brown", "Bruce Springsteen", "Donald Trump", "Muhammad Ali", "Paul McCartney", "George Lucas", "Elton John", "David Letterman", "Phil Mickelson", "J.K. Rowling", "Bradd Pitt", "Peter Jackson", "Dr. Phil McGraw", "Jay Lenon", "Celine Dion", "Kobe Bryant")
+power_ranking <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25)
+annual_pay <- c(67, 90, 225, 110, 90, 332, 302, 41, 52, 88, 55, 44, 55, 40, 233, 34, 40, 47, 75, 25, 39, 45, 32, 40, 31)
+
+#b. Modify the power ranking and pay of J.K. Rowling. Change power ranking to 15 and pay to 90.
+  
+  power_ranking[19] <- 15
+  annual_pay[19] <- 90
+
+
+# Print the modified vectors
+print(celebrities)
+print(power_ranking)
+print(annual_pay)
+
+#c. 
+
+install.packages ("readr")
+library(readr)
+
+PowerRankingDta <- read.csv(file = "PowerRanking.csv",header = T,
+                      stringsAsFactors = F,sep = ",")
+PowerRankingDta$Celebrities[10:20] 
+
+
+#Ouput
+#PowerRankingDta$Celebrities[10:20] 
+#[1] "Dan Brown"         "Bruce Springsteen" "Donald Trump"     
+#[4] "Muhammad Ali"      "Paul McCartney"    "George Lucas"     
+#[7] "Elton John"        "David Letterman"   "Phil Mickelson"   
+#[10] "J.K Rowling"       "Bradd Pitt"       
+
+
+#9. 
+install.packages("readxl")
+
+library(readxl)
+
+ExcelDta <- read_excel("hotels-vienna.xlsx")
+
+dim
