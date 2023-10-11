@@ -87,45 +87,92 @@ data
 
 #8. Create vectors according to the table. 
 
-#a.Vectors using the data in the table.
-celebrities <- c("Tom Cruise", "Rolling Stones", "Oprah Winfrey", "U2", "Tiger Woods", "Steven Spielberg", "Howard Stern", "50 Cent", "Cast of Sopranos", "Dan Brown", "Bruce Springsteen", "Donald Trump", "Muhammad Ali", "Paul McCartney", "George Lucas", "Elton John", "David Letterman", "Phil Mickelson", "J.K. Rowling", "Bradd Pitt", "Peter Jackson", "Dr. Phil McGraw", "Jay Lenon", "Celine Dion", "Kobe Bryant")
-power_ranking <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25)
-annual_pay <- c(67, 90, 225, 110, 90, 332, 302, 41, 52, 88, 55, 44, 55, 40, 233, 34, 40, 47, 75, 25, 39, 45, 32, 40, 31)
-
+#a.
+Celeb <- data.frame(
+power_ranking= 1:25,
+celebrities = c("Tom Cruise", "Rolling Stones", "Oprah Winfrey", "U2", "Tiger Woods", "Steven Spielberg", "Howard Stern", "50 Cent", "Cast of Sopranos", "Dan Brown", "Bruce Springsteen", "Donald Trump", "Muhammad Ali", "Paul McCartney", "George Lucas", "Elton John", "David Letterman", "Phil Mickelson", "J.K. Rowling", "Bradd Pitt", "Peter Jackson", "Dr. Phil McGraw", "Jay Lenon", "Celine Dion", "Kobe Bryant"),
+annual_pay = c(67, 90, 225, 110, 90, 332, 302, 41, 52, 88, 55, 44, 55, 40, 233, 34, 40, 47, 75, 25, 39, 45, 32, 40, 31)
+)
+Celeb 
 #b. Modify the power ranking and pay of J.K. Rowling. Change power ranking to 15 and pay to 90.
   
   power_ranking[19] <- 15
   annual_pay[19] <- 90
+power_ranking 
+annual_pay 
 
 
-# Print the modified vectors
-print(celebrities)
-print(power_ranking)
-print(annual_pay)
+celeb <- data.frame(
+  PowerRanking = power_ranking,
+  Celebrities = celebrities,
+  Pay = annual_pay)
+celeb 
 
-#c. 
+#c. Install and load the 'writexl' library for writing Excel files.
+ 
+install.packages("writexl")
+ library(writexl)
+write_xlsx(Celeb,path="PowerRanking.xlsx")
+write.csv(Celeb,file= "PowerRanking.csv", row.names = FALSE)
 
-install.packages ("readr")
-library(readr)
+#d. 
+subset_data <- Celeb[10:20,]
+save(subset_data, file = "Ranks.RData")
+print(subset_data)
 
-PowerRankingDta <- read.csv(file = "PowerRanking.csv",header = T,
-                      stringsAsFactors = F,sep = ",")
-PowerRankingDta$Celebrities[10:20] 
-
-
-#Ouput
-#PowerRankingDta$Celebrities[10:20] 
-#[1] "Dan Brown"         "Bruce Springsteen" "Donald Trump"     
-#[4] "Muhammad Ali"      "Paul McCartney"    "George Lucas"     
-#[7] "Elton John"        "David Letterman"   "Phil Mickelson"   
-#[10] "J.K Rowling"       "Bradd Pitt"       
-
+#e. This script will create an RData file named "Ranks.RData" containing the subset of rows from 10 to 20 from the original data frame.
 
 #9. 
-install.packages("readxl")
+#a.
 
 library(readxl)
-
 ExcelDta <- read_excel("hotels-vienna.xlsx")
+ExcelDta
 
-dim
+#b.
+dimensions <- dim(ExcelDta)
+dimensions
+
+#c.
+selected_columns <- ExcelDta[,c("country", "neighbourhood", "price", "stars", "accommodation_type", "rating")]
+head(selected_columns, n = nrow(selected_columns))
+
+#d. 
+save(selected_columns, file = "new.RData")
+
+#e.
+load("new.RData")
+head(selected_columns)
+tail(selected_columns)
+
+
+#10. 
+#a.
+vegetables <- c("Potatoes", "Tomato", "Eggplant", "Kale", "Cocumber","Bell Pepper", "Radish", "Cabbage", "Lettuce", "Carrots")
+vegetables
+
+#b.
+vegetables <- c(vegetables, "Onion", "Spinach")
+vegetables
+
+#c.
+vegetables <- append(vegetables, c("Zucchini", "Swiss Chard", "Beets","Garlic", "Leeks"), after = 5)
+num_datapoints <- length(vegetables)
+vegetables 
+cat("Number of Data Points: ", num_datapoints, "\n")
+
+#d. 
+vegetables <- vegetables[-c(5, 10, 15)]
+num_vegetables_left <- length(vegetables)
+cat("Number of vegetables left: ", num_vegetables_left, "\n")
+
+
+
+
+
+
+
+
+
+
+
