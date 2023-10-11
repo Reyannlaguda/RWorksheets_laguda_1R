@@ -126,4 +126,3 @@ dimnames(array_3d) <- list(c("a","b"),
               LETTERS[1:4],c("1st-Dimensional Array", "2nd-Dimensional Array", "3rd-Dimensional Array"))
 array_3d
 ```
-
