@@ -1,0 +1,76 @@
+---
+title: "RWork- sheet_LAGUDA4b"
+author: "Rey-Ann S. Laguda"
+date: "2023-11-07"
+output: pdf_document
+---
+#Number1
+``` {r number1}
+matrixA <- matrix(0, nrow = 5, ncol = 5)
+
+for (i in 1:5) {
+  for (j in 1:5) {
+    matrixA[i, j] <- abs(vectorA[i] - vectorA[j])
+  }
+}
+
+matrixA
+
+```
+
+#Number2
+``` {r number2}
+num_rows <- 5
+
+for (i in 1:num_rows) {
+  for (j in 1:i) {
+    cat("* ")
+  }
+  cat("\n")
+}
+
+
+```
+
+#Nuumber3
+``` {r number3}
+
+n <- as.numeric(readline("Enter the starting number for the Fibonacci sequence: "))
+
+
+a <- n
+b <- n
+
+
+cat(a, " ")
+
+
+repeat {
+  c <- a + b
+  if (c > 500) {
+    break
+  }
+  cat(c, " ")
+  a <- b
+  b <- c
+}
+cat("\n")
+
+```
+
+#Number4
+``` {r number4}
+library(readr)
+Shoesize <- read_csv("/cloud/project/RWorksheet4/Shoesize.csv", show_col_types = FALSE)
+ View (Shoesize)
+ 
+ head(Shoesize, n = 6)
+ head
+ 
+ 
+```
+
+
+
+
+
