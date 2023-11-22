@@ -60,6 +60,7 @@ cat("\n")
 
 #Number4
 ``` {r number4}
+#a
 library(readr)
 Shoesize <- read_csv("/cloud/project/RWorksheet4/Shoesize.csv", show_col_types = FALSE)
  View (Shoesize)
@@ -67,10 +68,91 @@ Shoesize <- read_csv("/cloud/project/RWorksheet4/Shoesize.csv", show_col_types =
  head(Shoesize, n = 6)
  head
  
+ #b
+ male_subset <- subset(Shoesize, Gender == "M")
+ female_subset <- subset(Shoesize, Gender == "F")
  
+ male_subset
+ female_subset
+ 
+ 
+ num_male_observations <- nrow(male_subset)
+ num_female_observations <- nrow(female_subset)
+ 
+ cat("Number if observations in Male: ", num_male_observations, "\n")
+ cat("Number if observations in Female: ", num_female_observations, "\n")
 ```
 
+#4c
+``` {r number4c}
+household <- read.csv("HouseholdData.csv")
+household
+ 
+gender_counts <- table(household$Sex)
+
+plot(1, type = "n", main = "Number of Males and Females in Household Data",
+     xlab = "Sex", ylab = "Count", xlim = c(-0.1, 2.5), ylim = c(0, max(gender_counts)))
+
+barplot(gender_counts, col = c("pink", "blue"), add = TRUE)
+
+legend("topright", legend = levels(as.factor(household$Sex)), fill = c("pink", "blue"))
+```
+
+#5
+``` {r number5}
+pie_chart <- c(60, 10, 5, 25)
+pie(pie_chart, labels = paste0(pie_chart, "%"),
+    main = "The monthly income of Dela Cruz family was spent on the following: ", col = rainbow(length(pie_chart)))
+
+legend("topleft", legend = c("Food", "Electricity", "Savings", "Miscellaneous"),
+       fill = rainbow(length(pie_chart)))
+
+```
+
+#6 
+``` {r number6}
+data (iris)
+str(iris)
+
+mean_values <- colMeans(iris[, 1:4])
+mean_values
+
+species_counts <- table(iris$Species)
+
+colors <- c("lightcoral", "lightgreen", "lightblue")
+
+pie (species_counts, labels = species_counts, col= colors, main = "Species Distribution")
+
+legend("topright", legend = levels(iris$Species), fill = colors)
+
+cat("Last six rows of Setosa subset:\n")
+tail(subset(iris, Species == "setosa"), 6)
+
+cat("\nLast six rows of Versicolor subset:\n")
+tail(subset(iris, Species == "versicolor"), 6)
+
+cat("\nLast six rows of Virginica subset:\n")
+tail(subset(iris, Species == "virginica"), 6)
 
 
+colors <- c("setosa" = "red", "versicolor" = "green", "virginica" = "blue")
+symbols <- c("setosa" = 16, "versicolor" = 17, "virginica" = 18)
 
+# Create a scatterplot
+plot(iris$Sepal.Length, iris$Sepal.Width,
+     col = colors[as.character(iris$Species)],
+     pch = symbols[as.character(iris$Species)],
+     main = "Iris Dataset",
+     sub = "Sepal width and length",
+     xlab = "Sepal Length",
+     ylab = "Sepal Width")
 
+# Add legend
+legend("topright", legend = levels(iris$Species), col = colors, pch = symbols)
+```
+
+#7
+``` {r number7}
+#library(readxl)
+
+```
