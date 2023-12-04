@@ -7,7 +7,7 @@ output: pdf_document
 #Number1
 ``` {r number1}
 matrixA <- matrix(0, nrow = 5, ncol = 5)
-
+vectorA <- c(1, 2, 3, 4, 5)
 for (i in 1:5) {
   for (j in 1:5) {
     matrixA[i, j] <- abs(vectorA[i] - vectorA[j])
@@ -38,8 +38,8 @@ for (i in 1:num_rows) {
 n <- as.numeric(readline("Enter the starting number for the Fibonacci sequence: "))
 
 
-a <- n
-b <- n
+a <- 0
+b <- 1
 
 
 cat(a, " ")
@@ -63,7 +63,7 @@ cat("\n")
 #a
 library(readr)
 Shoesize <- read_csv("/cloud/project/RWorksheet4/Shoesize.csv", show_col_types = FALSE)
- View (Shoesize)
+Shoesize
  
  head(Shoesize, n = 6)
  head
@@ -151,8 +151,3 @@ plot(iris$Sepal.Length, iris$Sepal.Width,
 legend("topright", legend = levels(iris$Species), col = colors, pch = symbols)
 ```
 
-#7
-``` {r number7}
-#library(readxl)
-
-```
