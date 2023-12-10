@@ -2,7 +2,10 @@
 title: "RWorksheet_Laguda#4c"
 author: "Rey-Ann S. Laguda"
 date: "2023-12-04"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 #1
 ```{r number1}
@@ -96,8 +99,8 @@ ggplot(data = as.data.frame(models_per_manufacturer), aes(x = Var1, y = Freq)) +
 
 ```
 
-#2a
-```{r number2a} 
+#2aa
+```{r number2aa} 
 #. Same dataset will be used. You are going to show the relationship of the model and the manufacturer.
 
 library(ggplot2)
@@ -105,8 +108,8 @@ ggplot(mpg, aes(model, manufacturer)) +
   geom_point()
 ```
 
-#2b
-```{r number2b}
+#2bb
+```{r number2bb}
 # The plot might not be very informative because it's attempting to create a scatter plot using categorical variables for both the x and y axes. Scatter plots are typically more suited for continuous variables.
 
 #Tallying Data
@@ -216,14 +219,122 @@ ggplot(mpg, aes(x = displ, y = hwy, color = continuous_variable)) +
 
 ```
 
-#6
-```{r number6}
+#6.1
+```{r number6.1}
 library(readr)
-traffic <- read_csv("traffic.csv")
-View(traffic)
+traffic <- read_csv("/cloud/project/RWorksheet4/traffic.csv")
+traffic
 ```
 
 #6a
 ```{r nummber6a}
+observations <- nrow(traffic)
+observations
+
+columns <- ncol(traffic)
+columns
+```
+
+#6b
+```{r number6b}
+junction1 <- subset(traffic, Junction ==1)
+junction1
+
+junction2 <- subset(traffic, Junction ==2)
+junction2
+
+junction3 <- subset(traffic, Junction ==3)
+junction3
+
+junction4 <- subset(traffic, Junction ==4)
+junction4
+```
+
+#6c
+``` {r number6c}
+# Assuming 'traffic' is your dataset
+library(ggplot2)
+
+# Plot each junction using geom_line()
+ggplot(traffic, aes(x = seq_along(Junction), y = DateTime, group = Junction, color = factor(Junction))) +
+  geom_line() +
+  labs(title = "Plots in each Junction",
+       x = "Observation",
+       y = "Date&Time") +
+  scale_color_discrete(name = "Junction")
 
 ```
+
+#7
+```{r number7} 
+library(readxl)
+alexa_file <- read_xlsx("/cloud/project/RWorksheet4/alexa_file.xlsx")
+alexa_file
+```
+
+#7a
+``` {r number7a}
+observ <- nrow(alexa_file)
+observ
+
+colm <- ncol (alexa_file)
+colm
+```
+
+#7b
+``` {r number7b}
+# Assuming 'your_dataset' is your actual dataset and 'variations' is the variable of interest
+library(dplyr)
+
+# Group by variations and count the occurrences of each variation
+result <- alexa_file %>%
+  group_by(variation) %>%
+  summarize(total = n())
+
+# Print the result
+print(result)
+
+
+```
+#7c
+``` {r number7c}
+ggplot(alexa_file, aes(x = variation)) +
+  geom_bar(fill = "skyblue", color = "black") +
+  labs(title = "Distribution of Variation",
+       y = "Count",
+       x = "Variations") +
+  coord_flip()
+
+```
+
+#7d
+``` {r number7d}
+
+ggplot(alexa_file, aes(x = date, y = verified_reviews)) +
+  geom_line(color= "green") +
+  labs (title = "Date and the number of verified reviews",
+        x = "Date",
+        y = "Rating") +
+  coord_flip()
+
+```
+
+#7e
+``` {r number7e}
+ggplot(alexa_file, aes(x = variation, y = rating)) +
+  geom_boxplot(fill = "skyblue", color = "black") +
+  labs(title = "Relationship Between Variations and Ratings",
+       x = "Variations",
+       y = "Ratings") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+```
+
+
+
+
+
+
+
+
+
+
