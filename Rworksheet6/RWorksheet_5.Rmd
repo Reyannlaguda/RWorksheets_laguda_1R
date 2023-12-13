@@ -1,0 +1,10 @@
+---
+title: "RWork- sheet_5"
+author: "Rey-Ann S. Laguda"
+date: "2023-12-10"
+output: pdf_document
+---
+#1
+``` {r number1}
+
+```
