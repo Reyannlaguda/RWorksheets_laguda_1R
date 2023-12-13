@@ -4,7 +4,44 @@ author: "Rey-Ann S. Laguda"
 date: "2023-12-10"
 output: pdf_document
 ---
+#..
+``` {r number..}
+install.packages("htmltools")
+install.packages("pastecs")
+```
+
 #1
 ``` {r number1}
 
+library(Hmisc)
+summary(student_score)
+library(pastecs)
+stat.desc(student_score)
+
+student_score <- data.frame (
+   Student = c(1,2,3,4,5,6,7,8,9,10),
+   'Pre-test' = c(55, 54, 47, 57, 51, 61, 57, 54, 63, 58),
+   'Post-test' = c(61, 60, 56, 63, 56, 63, 59, 56, 62, 61)
+)
+ student_score
 ```
+
+#2a
+``` {r number2a}
+
+agri_data <- c(10, 10, 10, 20, 20, 50, 10, 20, 10, 50, 20, 50, 20, 10)
+
+fertilizer_levels <- factor(agri_data, levels = c(10, 20, 50), ordered = TRUE)
+
+fertilizer_levels
+
+```
+
+
+
+
+
+
+
+
+
