@@ -8,15 +8,14 @@ output: pdf_document
 ``` {r number..}
 install.packages("htmltools")
 install.packages("pastecs")
+install.packages("AppliedPredictiveModeling")
 ```
 
 #1
 ``` {r number1}
 
 library(Hmisc)
-summary(student_score)
 library(pastecs)
-stat.desc(student_score)
 
 student_score <- data.frame (
    Student = c(1,2,3,4,5,6,7,8,9,10),
@@ -24,10 +23,13 @@ student_score <- data.frame (
    'Post-test' = c(61, 60, 56, 63, 56, 63, 59, 56, 62, 61)
 )
  student_score
+ summary(student_score)
+stat.desc(student_score)
+
 ```
 
-#2a
-``` {r number2a}
+#2
+``` {r number2}
 
 agri_data <- c(10, 10, 10, 20, 20, 50, 10, 20, 10, 50, 20, 50, 20, 10)
 
@@ -36,11 +38,159 @@ fertilizer_levels <- factor(agri_data, levels = c(10, 20, 50), ordered = TRUE)
 fertilizer_levels
 
 ```
+#3
+``` {r number3}
+#The following represents the 10 exercise levels in which "n" stands for none, "l" stands for light, and "i" stands for intense.
+exercise_levels <- c("l", "n", "n", "i", "l", "l", "n", "n", "i", "l")
+exercise_levels
+```
 
+#4
+``` {r number4}
+state <- c("tas", "sa", "qld", "nsw", "nsw", "nt", "wa", "wa", "qld",
+"vic", "nsw", "vic", "qld", "qld", "sa", "tas", "sa", "nt",
+"wa", "vic", "qld", "nsw", "nsw", "wa", "sa", "act", "nsw",
+"vic", "vic", "act")
 
+state_factor <- factor(state, levels = unique (state))
+state_factor
+```
 
+#5 
+``` {r number5}
+incomes <- c(60, 49, 40, 61, 64, 60, 59, 54,
+62, 69, 70, 42, 56, 61, 61, 61, 58, 51, 48,
+65, 49, 49, 41, 48, 52, 46, 59, 46, 58, 43)
 
+incmeans <- tapply(incomes, state_factor, mean)
+incmeans
 
+#5b
+#    tas       sa      qld      nsw       nt       wa 
+#60.50000 55.00000 53.60000 57.33333 55.50000 52.25000 
+ #    vic      act 
+#56.00000 44.50000 
+#The average income for tax accountants varies across different states in Australia. In Tasmania, tax accountants earn approximately $60,500, while in South Australia, the average income is $55,000. Tax accountants in Queensland have an average income of around $53,600, and in New South Wales, the average income is approximately $57,333. In the Northern Territory, tax accountants earn an average income of $55,500, while in Western Australia, the average is around $52,250. Tax accountants in Victoria have an average income of $56,000, and in the Australian Capital Territory, the average income is $44,500.
+```
+
+#6a
+``` {r number6a}
+stdError <- function(x) sqrt(var(x)/length(x))
+incster <- tapply(incomes, state_factor, stdError)
+incster
+```
+
+#6b
+``` {r number6b}
+#The accuracy of the average income estimate is very good for Tasmania, with a small standard error of about $0.50. In South Australia, there is a moderate level of uncertainty in the average income estimate, reflected in a standard error of around $2.74. Queensland's average income estimate has a higher level of uncertainty, indicated by a standard error of about $4.11. New South Wales has a significant level of uncertainty in the average income estimate, with a standard error of approximately $4.31. The Northern Territory has a notable level of uncertainty in the average income estimate, with a standard error of around $4.50. In Western Australia, the average income estimate shows a moderate level of uncertainty, with a standard error of about $2.66. Victoria's average income estimate has a larger degree of uncertainty, as shown by a standard error of approximately $5.24. The Australian Capital Territory, like Tasmania, has a very good level of precision in the average income estimate, with a standard error of about $1.50.
+```
+
+#7
+``` {r number7}
+data (Titanic)
+Titanic
+```
+
+#7b
+``` {r number7b}
+library(dplyr)
+Titanic_df <- as.data.frame(Titanic)
+survivors <- Titanic_df %>%filter(Survived == "Yes")
+head(survivors) 
+tail(survivors)
+
+non_survivors <- Titanic_df %>%filter(Survived == "No")
+head(non_survivors) 
+tail(survivors)
+```
+
+#8
+``` {r number8}
+library(readr)
+breastcancer_wisconsin <- read_csv("/cloud/project/Rworksheet6/breastcancer_wisconsin.csv",  show_col_types = FALSE)
+breastcancer_wisconsin
+
+#id: A unique identifier for each biopsy. clump_thickness: Describes the thickness of the clumps in the cells. size_uniformity: Represents the uniformity of cell size. shape_uniformity: Reflects the uniformity of cell shape. marginal_adhesion: Indicates how cells adhere to each other at the periphery. epithelial_size: Describes the size of epithelial cells. bare_nucleoli: Represents the number of nuclei that are not surrounded by cytoplasm. bland_chromatin: Describes the uniformity of chromatin distribution. normal_nucleoli: Represents the normality of nucleoli. mitoses: Indicates the number of mitoses observed. class: The target variable, where 2 typically indicates benign (non-cancerous) samples, and 4 indicates malignant (cancerous) samples.
+```
+#8d.1
+``` {r number8d.1}
+sd_clump_thickness <- sd(breastcancer_wisconsin$clump_thickness)
+
+sample_size <- length(breastcancer_wisconsin$clump_thickness)
+
+sem_clump_thickness <- sd_clump_thickness / sqrt(sample_size)
+
+cat("Standard Error of the Mean for Clump Thickness:", sem_clump_thickness, "\n")
+
+```
+
+#8d.2
+``` {r number8d.2}
+mean_marginal_adhesion <- mean(breastcancer_wisconsin$marginal_adhesion)
+sd_marginal_adhesion <- sd(breastcancer_wisconsin$marginal_adhesion)
+
+cv_marginal_adhesion <- (sd_marginal_adhesion / mean_marginal_adhesion) * 100
+
+cat("Coefficient of Variation for Marginal Adhesion:", cv_marginal_adhesion, "%\n")
+
+```
+#8d.3
+``` {r number8d.3}
+num_null_bare_nuclei <- sum(is.na(breastcancer_wisconsin$bare_nucleoli))
+
+cat("Number of null values for Bare Nuclei:", num_null_bare_nuclei, "\n")
+
+```
+
+#8d.4
+``` {r number8d.4}
+mean_bland_chromatin <- mean(breastcancer_wisconsin$bland_chromatin, na.rm = TRUE)
+sd_bland_chromatin <- sd(breastcancer_wisconsin$bland_chromatin, na.rm = TRUE)
+
+cat("Mean for Bland Chromatin:", mean_bland_chromatin, "\n")
+cat("Standard Deviation for Bland Chromatin:", sd_bland_chromatin, "\n")
+
+```
+
+#8d.5
+``` {r number8d.5}
+mean_value <- mean(breastcancer_wisconsin$shape_uniformity, na.rm = TRUE)
+se <- sd(breastcancer_wisconsin$shape_uniformity, na.rm = TRUE) / sqrt(length(breastcancer_wisconsin$shape_uniformity))
+
+confidence_level <- 0.95
+
+margin_of_error <- qt((1 + confidence_level) / 2, df = length(breastcancer_wisconsin$shape_uniformity) - 1) * se
+
+confidence_interval <- c(mean_value - margin_of_error, mean_value + margin_of_error)
+
+cat("Confidence Interval (", confidence_level * 100, "%) :", confidence_interval, "\n")
+
+```
+
+#8d
+``` {r number8d}
+column_names <- names(breastcancer_wisconsin)
+column_names
+```
+
+#8e
+``` {r number8e}
+malignant_count <- sum(breastcancer_wisconsin$class == 4)
+
+malignant_percentage <- (malignant_count / nrow(breastcancer_wisconsin)) * 100
+
+cat("Percentage of respondents who are malignant:", malignant_percentage, "%\n")
+
+```
+#9
+```{r number9}
+library("AppliedPredictiveModeling")
+library(readr)
+abalone <- read_csv("/cloud/project/Rworksheet6/abalone.csv")
+abalone
+head(abalone)
+summary(abalone)
+```
 
 
 
